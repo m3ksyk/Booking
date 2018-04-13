@@ -9,7 +9,7 @@ public class Manager {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Press 1 to manage users");
 		System.out.println("Press 2 to manage groups");
-		System.out.println("Press 3 to manage hotelss");
+		System.out.println("Press 3 to manage hotels");
 		System.out.println("Press 4 to manage rooms");
 		System.out.println("Press 5 to manage reservations");
 		System.out.println("Press q to quit");

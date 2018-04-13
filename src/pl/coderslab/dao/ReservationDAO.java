@@ -26,33 +26,34 @@ public class ReservationDAO {
 		String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
-				connection.prepareStatement(CREATE_RESERVATION_QUERY);) {
-				statement.setString(1, reservation.getApplyDate());
-				statement.setString(2, reservation.getFromDate());
-				statement.setString(3, reservation.getToDate());
-				statement.setString(4, reservation.getDescription());
-				statement.setInt(5, reservation.getUser_id());
-				statement.setInt(6, reservation.getStatus_id());
-				statement.executeUpdate();
-				ResultSet rs = statement.getGeneratedKeys();
-				 if (rs.next()) {
-			    	  reservation.setId(rs.getInt(1));
-			      }
-				} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Coś się nie powiodło.");
-				}
+					connection.prepareStatement(CREATE_RESERVATION_QUERY);) {
+			statement.setString(1, reservation.getApplyDate());
+			statement.setString(2, reservation.getFromDate());
+			statement.setString(3, reservation.getToDate());
+			statement.setString(4, reservation.getDescription());
+			statement.setInt(5, reservation.getUser_id());
+			statement.setInt(6, reservation.getStatus_id());
+			statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			if (rs.next()) {
+				reservation.setId(rs.getInt(1));
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error");
+		}
 		return reservation;
 	}
+	
 	public static void delete(Integer reservationId) {
 		try (Connection connection = DbUtil.getConnection();
-		PreparedStatement statement =
-		connection.prepareStatement(DELETE_RESERVATION_QUERY);) {
-		statement.setInt(1, reservationId);
-		statement.executeUpdate();
+				PreparedStatement statement =
+						connection.prepareStatement(DELETE_RESERVATION_QUERY);) {
+			statement.setInt(1, reservationId);
+			statement.executeUpdate();
 		} catch (Exception e) {
-		e.printStackTrace();
-		System.out.println("Coś się nie powiodło.");
+			e.printStackTrace();
+			System.out.println("Error");
 		}
 	}
 	public static Reservation read(Integer reservationId) {
@@ -71,10 +72,12 @@ public class ReservationDAO {
 					reservation.setStatus_id(resultSet.getInt("status_id"));
 				}
 			}
-		} catch (Exception e) { e.printStackTrace();
-		System.out.println("Coś się nie powiodło.");}
+		} catch (Exception e) { 
+			e.printStackTrace();
+		System.out.println("Error");}
 		return reservation;
 	}
+	
 	public static Reservation readDescription(Integer reservationId) {
 		Reservation reservation = new Reservation();
 		try (Connection connection = DbUtil.getConnection();
@@ -85,8 +88,9 @@ public class ReservationDAO {
 					reservation.setDescription(resultSet.getString("description"));
 				}
 			}
-		} catch (Exception e) { e.printStackTrace();
-		System.out.println("Coś się nie powiodło.");
+		} catch (Exception e) { 
+			e.printStackTrace();
+		System.out.println("Error");
 		}
 		return reservation;
 	}
@@ -107,8 +111,9 @@ public class ReservationDAO {
 					reservations.add(reservation);
 				}
 			}
-		} catch (Exception e) { e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+		} catch (Exception e) { 
+			e.printStackTrace();
+			System.out.println("Error");
 		}  
 		Reservation[] rArray = new Reservation[reservations.size()]; 
 		rArray = reservations.toArray(rArray);
@@ -118,36 +123,35 @@ public class ReservationDAO {
 	
 	public static void update(Reservation reservation) {
 		try (Connection connection = DbUtil.getConnection();
-		PreparedStatement statement =
-		connection.prepareStatement(UPDATE_RESERVATION_QUERY);) {
-		statement.setInt(7, reservation.getId());
-		statement.setString(1, reservation.getApplyDate());
-		statement.setString(2, reservation.getFromDate());
-		statement.setString(3, reservation.getToDate());
-		statement.setString(4, reservation.getDescription());
-		statement.setInt(5, reservation.getUser_id());
-		statement.setInt(6, reservation.getStatus_id());
-		statement.executeUpdate();
+				PreparedStatement statement =
+						connection.prepareStatement(UPDATE_RESERVATION_QUERY);) {
+			statement.setInt(7, reservation.getId());
+			statement.setString(1, reservation.getApplyDate());
+			statement.setString(2, reservation.getFromDate());
+			statement.setString(3, reservation.getToDate());
+			statement.setString(4, reservation.getDescription());
+			statement.setInt(5, reservation.getUser_id());
+			statement.setInt(6, reservation.getStatus_id());
+			statement.executeUpdate();
 		} catch (Exception e) {
 		e.printStackTrace();
-		System.out.println("Coś się nie powiodło.");
+		System.out.println("Error");
 		}
 	}
 	public static void updateStatus(Reservation reservation) {
 		try (Connection connection = DbUtil.getConnection();
-		PreparedStatement statement =
-		connection.prepareStatement(UPDATE_RESERVATION_STATUS_QUERY);) {
-		statement.setInt(2, reservation.getId());
-		statement.setInt(1, reservation.getStatus_id());
-		statement.executeUpdate();
+				PreparedStatement statement =
+						connection.prepareStatement(UPDATE_RESERVATION_STATUS_QUERY);) {
+			statement.setInt(2, reservation.getId());
+			statement.setInt(1, reservation.getStatus_id());
+			statement.executeUpdate();
 		} catch (Exception e) {
-		e.printStackTrace();
-		System.out.println("Coś się nie powiodło.");
+			e.printStackTrace();
+			System.out.println("Error");
 		}
 	}
 }
 
-//CREATE TABLE `reservations` (
-//`id` int(11) NOT NULL,
-//`applyDate datetime, fromDate datetime, toDate datetime, description text, user_id int, status_id int
-//) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+//CREATE TABLE reservations (id int(11) NOT NULL auto_increment primary key,applyDate datetime, fromDate datetime, 
+//toDate datetime, description text, user_id int, status_id int, foreign key (user_id) references users(id), foreign key 
+//(status_id) references status(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;

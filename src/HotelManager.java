@@ -26,10 +26,12 @@ public class HotelManager {
 				inputStr = scan.nextLine();
 			}else if (inputStr.equals("delete")) {
 				deleteHotel(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("view")) {
 				HotelDAO.readAllHotels();
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else {
 				System.out.println("Choose one of the options:");
 				inputStr = scan.nextLine();

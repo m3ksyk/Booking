@@ -18,7 +18,7 @@ public class HotelDAO {
 
 	public static Hotel create(Hotel hotel) {
 		hotel = new Hotel();
-		String generatedColumns[] = { "ID" };
+		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 				connection.prepareStatement(CREATE_HOTEL_QUERY);) {
@@ -28,13 +28,13 @@ public class HotelDAO {
 				statement.setInt(4, hotel.isPetsAllowed());
 				statement.setString(5, hotel.getDescription());				
 				statement.executeUpdate();
-				ResultSet rs = statement.getGeneratedKeys();
-				 if (rs.next()) {
-					 hotel.setId(rs.getInt(1));
-			      }
+//				ResultSet rs = statement.getGeneratedKeys();
+//				 if (rs.next()) {
+//					 hotel.setId(rs.getInt(1));
+//			      }
 				} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("Coś się nie powiodło.");
+				System.out.println("Error");
 				}
 		return hotel;
 	}
@@ -53,8 +53,9 @@ public class HotelDAO {
 					hotels.add(hotel);
 				}
 			}
-		} catch (Exception e) { e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+		} catch (Exception e) { 
+			e.printStackTrace();
+			System.out.println("Error");
 		}  
 		Hotel[] hArray = new Hotel[hotels.size()]; 
 		hArray = hotels.toArray(hArray);
@@ -76,44 +77,42 @@ public class HotelDAO {
 	public Hotel read(Integer hotelId) {
 		Hotel hotel = new Hotel();
 		try (Connection connection = DbUtil.getConnection();
-		PreparedStatement statement = connection.prepareStatement(READ_HOTEL_QUERY);) {
-		statement.setInt(1, hotelId);
-		try (ResultSet resultSet = statement.executeQuery()) {
-		while (resultSet.next()) {
-			hotel.setId(resultSet.getInt("id"));
-			hotel.setName(resultSet.getString("name"));
-			hotel.setDescription(resultSet.getString("description"));
-			hotel.setPhoneNumber(resultSet.getString("phoneNumber"));
-			hotel.setPetsAllowed(resultSet.getInt("petsAllowed")); }}
-		} catch (Exception e) { e.printStackTrace();
-		System.out.println("Coś się nie powiodło.");
+				PreparedStatement statement = connection.prepareStatement(READ_HOTEL_QUERY);) {
+			statement.setInt(1, hotelId);
+			try (ResultSet resultSet = statement.executeQuery()) {
+				while (resultSet.next()) {
+					hotel.setId(resultSet.getInt("id"));
+					hotel.setName(resultSet.getString("name"));
+					hotel.setDescription(resultSet.getString("description"));
+					hotel.setPhoneNumber(resultSet.getString("phoneNumber"));
+					hotel.setPetsAllowed(resultSet.getInt("petsAllowed")); 
+				}
+			}
+		} catch (Exception e) { 
+			e.printStackTrace();
+			System.out.println("Coś się nie powiodło.");
 		}
 		return hotel;
 	}
 
 	public static void update(Hotel hotel) {
-	try (Connection connection = DbUtil.getConnection();
-	PreparedStatement statement =
-	connection.prepareStatement(UPDATE_HOTEL_QUERY);) {
-	statement.setInt(6, hotel.getId());
-	statement.setString(1, hotel.getName());
-	statement.setString(2, hotel.getAddress());
-	statement.setString(3, hotel.getPhoneNumber());
-	statement.setInt(4, hotel.isPetsAllowed());
-	statement.setString(5, hotel.getDescription());
-	statement.executeUpdate();
-	} catch (Exception e) {
-	e.printStackTrace();
-	System.out.println("Coś się nie powiodło.");
-	}
+		try (Connection connection = DbUtil.getConnection();
+				PreparedStatement statement =
+						connection.prepareStatement(UPDATE_HOTEL_QUERY);) {
+			statement.setInt(6, hotel.getId());
+			statement.setString(1, hotel.getName());
+			statement.setString(2, hotel.getAddress());
+			statement.setString(3, hotel.getPhoneNumber());
+			statement.setInt(4, hotel.isPetsAllowed());
+			statement.setString(5, hotel.getDescription());
+			statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Coś się nie powiodło.");
+		}
 	}
 }
 
-//CREATE TABLE `hotels` (
-//`id` int(11) NOT NULL,
-//`name` varchar(500) COLLATE utf8_polish_ci NOT NULL,
-//`address` varchar(500) COLLATE utf8_polish_ci NOT NULL,
-//`description` varchar(500) COLLATE utf8_polish_ci NOT NULL,
-//'phoneNumber' varchar(25),
-// 'petsAllowed' tinyint
-//) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+//CREATE TABLE `hotels` (`id` int(11) NOT NULL auto_increment primary key,`name` varchar(500) COLLATE utf8_polish_ci NOT NULL,
+//`address` varchar(500) COLLATE utf8_polish_ci NOT NULL,`description` varchar(500) COLLATE utf8_polish_ci NOT NULL,'phoneNumber' varchar(25), 
+//'petsAllowed' tinyint) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;

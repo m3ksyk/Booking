@@ -1,5 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -8,10 +7,10 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 		
-			//IN THE CURRENT VERSION BOTH USER AND MANAGER PROGRAM ARE CALLED FROM A SHARED MENU IN MAIN METHOD
+			//IN THE CURRENT VERSION BOTH USER AND ADMIN PROGRAM ARE CALLED FROM A SHARED MENU IN MAIN METHOD
 			Scanner scan =new Scanner(System.in);
 			System.out.println("Press 1 to enter user view");
-			System.out.println("Press 2 to enter Manager view");
+			System.out.println("Press 2 to enter Admin view");
 			System.out.println("Press q to quit");
 			String inputStr = scan.nextLine();
 			while(!inputStr.equals("q")) {
@@ -41,4 +40,4 @@ public class Main {
 
 	}
 
-}
+

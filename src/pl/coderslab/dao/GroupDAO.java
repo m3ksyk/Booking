@@ -18,20 +18,20 @@ public class GroupDAO {
 	
 	public static Group create(Group group) {
 		group = new Group();
-	String generatedColumns[] = { "ID" };
-	try (Connection connection = DbUtil.getConnection();
-			PreparedStatement statement =
-			connection.prepareStatement(CREATE_GROUP_QUERY);) {
+		String generatedColumns[] = { "ID" };
+		try (Connection connection = DbUtil.getConnection();
+				PreparedStatement statement =
+						connection.prepareStatement(CREATE_GROUP_QUERY);) {
 			statement.setString(1, group.getName());			
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
-			 if (rs.next()) {
-				 group.setId(rs.getInt(1));
-		      }
-			} catch (Exception e) {
+				if (rs.next()) {
+					group.setId(rs.getInt(1));
+				}
+		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
-			}
+			System.out.println("Error");
+		}
 		return group;
 	
 	}
@@ -47,8 +47,9 @@ public class GroupDAO {
 					groups.add(group);
 				}
 			}
-		} catch (Exception e) { e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+		} catch (Exception e) { 
+			e.printStackTrace();
+			System.out.println("Error.");
 		}  
 		Group[] gArray = new Group[groups.size()]; 
 		gArray = groups.toArray(gArray);
@@ -65,7 +66,7 @@ public class GroupDAO {
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 	}
 	
@@ -82,7 +83,7 @@ public class GroupDAO {
 			}
 		} catch (Exception e) { 
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 		return group;
 	}
@@ -97,13 +98,12 @@ public class GroupDAO {
 			statement.executeUpdate();
 		} catch (Exception e) {
 		e.printStackTrace();
-		System.out.println("Coś się nie powiodło.");
+		System.out.println("error");
 		}
 	}
 	//viewing users in group is already in user, no need to implement it here again
 }
 
-//CREATE TABLE `groups` (
-//`id` int(11) NOT NULL,
-//`name` varchar(500) COLLATE utf8_polish_ci NOT NULL,
-// ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+//CREATE TABLE `groups` (`id` int(11) NOT NULL primary key,`name`
+//varchar(500) COLLATE utf8_polish_ci NOT NULL) ENGINE=InnoDB
+//DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;

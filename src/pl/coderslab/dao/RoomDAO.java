@@ -14,14 +14,9 @@ public class RoomDAO {
 //	double price;
 //	int hotel_id;
 	
-	//CREATE TABLE `rooms` (
-	//`id` int(11) NOT NULL,
-	//`internalNumber` int,
-	//`peopleLimit` int,
-	//`description` varchar(500) COLLATE utf8_polish_ci NOT NULL,
-	//'price' decimal (5,2),
-	//`hotel_id` int(11) NOT NULL
-	//) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+	
+	//CREATE TABLE rooms (id int(11) NOT NULL auto_increment primary key,internalNumber int, peopleLimit int, description varchar(500) COLLATE utf8_polish_ci NOT NULL, price decimal(7,2),hotel_id int(11) NOT NULL, foreign key (hotel_id) references hotels(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
 	
 	//ZAPYTANIA SQL
 	private static final String CREATE_ROOM_QUERY =
@@ -38,21 +33,21 @@ public class RoomDAO {
 		String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
-				connection.prepareStatement(CREATE_ROOM_QUERY);) {
-				statement.setInt(1, room.getInternalNumber());
-				statement.setInt(2, room.getPeopleLimit());
-				statement.setString(3, room.getDescription());
-				statement.setDouble(4, room.getPrice());
-				statement.setInt(5, room.getHotel_id());				
-				statement.executeUpdate();
-				ResultSet rs = statement.getGeneratedKeys();
-				 if (rs.next()) {
-					 room.setId(rs.getInt(1));
-			      }
-				} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Coś się nie powiodło.");
-				}
+						connection.prepareStatement(CREATE_ROOM_QUERY);) {
+			statement.setInt(1, room.getInternalNumber());
+			statement.setInt(2, room.getPeopleLimit());
+			statement.setString(3, room.getDescription());
+			statement.setDouble(4, room.getPrice());
+			statement.setInt(5, room.getHotel_id());				
+			statement.executeUpdate();
+			ResultSet rs = statement.getGeneratedKeys();
+			 if (rs.next()) {
+				 room.setId(rs.getInt(1));
+		      }
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error");
+		}
 		return room;
 	}
 	public static Room[] readAllRooms() {
@@ -71,8 +66,9 @@ public class RoomDAO {
 					rooms.add(room);
 				}
 			}
-		} catch (Exception e) { e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+		} catch (Exception e) { 
+			e.printStackTrace();
+			System.out.println("Error");
 		}  
 		Room[] rArray = new Room[rooms.size()]; 
 		rArray = rooms.toArray(rArray);
@@ -88,7 +84,7 @@ public class RoomDAO {
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 	}
 	public static Room read(Integer roomId) {
@@ -109,7 +105,7 @@ public class RoomDAO {
 			}
 		} catch (Exception e) { 
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 		return room;
 	}
@@ -127,7 +123,7 @@ public class RoomDAO {
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 	}
 	
@@ -141,7 +137,7 @@ public class RoomDAO {
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 	}
 	

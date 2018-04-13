@@ -24,13 +24,13 @@ public class StatusDAO {
 		Status status = new Status();
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
-				connection.prepareStatement(CREATE_STATUS_QUERY);) {
-				statement.setInt(1, status.getReservationStatus());	
-				statement.executeUpdate();
-				} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Coś się nie powiodło.");
-				}
+						connection.prepareStatement(CREATE_STATUS_QUERY);) {
+			statement.setInt(1, status.getReservationStatus());	
+			statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error");
+		}
 		return status;
 	}
 	public Status[] readAllStatuses(Integer statusId) {
@@ -45,8 +45,9 @@ public class StatusDAO {
 					statuses.add(status);
 				}
 			}
-		} catch (Exception e) { e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+		} catch (Exception e) { 
+			e.printStackTrace();
+			System.out.println("Error");
 		}  
 		Status[] sArray = new Status[statuses.size()]; 
 		sArray = statuses.toArray(sArray);
@@ -56,13 +57,12 @@ public class StatusDAO {
 	public void delete(Integer statusId) {
 		try (Connection connection = DbUtil.getConnection();
 			PreparedStatement statement =
-			connection.prepareStatement(DELETE_STATUS_QUERY);) {
-			
+			connection.prepareStatement(DELETE_STATUS_QUERY);) {			
 			statement.setInt(1, statusId);
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 	}
 	
@@ -80,7 +80,7 @@ public class StatusDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 		return status;
 	}
@@ -94,14 +94,11 @@ public class StatusDAO {
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Coś się nie powiodło.");
+			System.out.println("Error");
 		}
 	}
 
 }
 
 
-//CREATE TABLE `status` (
-//`id` int(11) NOT NULL,
-// reservation_status tinyint NOT NULL
-//) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+//CREATE TABLE status (id int(11) NOT NULL primary key auto_increment,reservation_status tinyint NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;

@@ -23,6 +23,7 @@ public class GroupManager {
 		System.out.println("edit - to edit group");
 		System.out.println("delete - to delete group");
 		System.out.println("view - to view users in the group");
+		System.out.println("show - to view all groups");
 		System.out.println("quit - to quit");
 		String inputStr = scan.nextLine();
 		while(!inputStr.equals("quit")) {
@@ -36,10 +37,16 @@ public class GroupManager {
 				inputStr = scan.nextLine();
 			}else if (inputStr.equals("delete")) {
 				deleteGroup(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("view")) {
 				viewUsersInGroup(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
+			}else if (inputStr.equals("show")) {
+				GroupDAO.readAllGroups();
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else {
 				System.out.println("Choose one of the options:");
 				inputStr = scan.nextLine();
@@ -88,7 +95,7 @@ public class GroupManager {
 			int id = scan.nextInt();
 			GroupDAO.delete(id);
 			System.out.println("Group with id: " + id + " deleted");
-			GroupDAO.readAllGroups();
+			//GroupDAO.readAllGroups();
 		}
 		public static void viewUsersInGroup(Scanner scan) throws SQLException {
 			System.out.println("Viewing users in a group. Enter group id:");
