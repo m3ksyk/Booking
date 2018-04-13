@@ -8,9 +8,7 @@ public class User {
 	private String password;
 	private Integer userGroupId;
 		
-	public Integer getId() {
-		return id;
-	}
+	
 	public User(Integer id, String name, String email, String password, Integer userGroupId) {
 		this.id = id;
 		this.name = name;
@@ -21,6 +19,9 @@ public class User {
 	
 	public User() {
 		
+	}
+	public Integer getId() {
+		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;

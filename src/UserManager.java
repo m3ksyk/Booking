@@ -43,8 +43,9 @@ public class UserManager {
 				UserDAO.readAllUsers();
 				System.out.println("Choose one of the options:");			
 			}else {
-				System.out.println("Choose one of the options:");
 				inputStr = scan.nextLine();
+				System.out.println("Choose one of the options:");
+				
 			}
 			
 			UserDAO.readAllUsers();

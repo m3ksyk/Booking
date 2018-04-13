@@ -27,6 +27,7 @@ public class Main {
 					inputStr = scan.nextLine();
 				}
 			}
+			
 			scan.close();	
 					
 		} catch (SQLException e) {

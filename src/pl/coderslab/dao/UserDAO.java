@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import pl.coderslab.entity.Group;
 import pl.coderslab.entity.User;
 
 public class UserDAO {
