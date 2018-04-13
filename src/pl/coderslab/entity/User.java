@@ -49,5 +49,10 @@ public class User {
 	public void setUserGroupId(Integer userGroupId) {
 		this.userGroupId = userGroupId;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", userGroupId="
+				+ userGroupId + "]";
+	}
 		
 }

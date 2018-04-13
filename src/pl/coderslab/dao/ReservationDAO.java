@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import pl.coderslab.entity.Reservation;
+import pl.coderslab.entity.User;
 
 public class ReservationDAO {
 
@@ -23,7 +24,7 @@ public class ReservationDAO {
 	//sprawdzic czy to wprowadzanie id dziala
 	public static Reservation create(Reservation reservation) {
 		reservation = new Reservation();
-		String generatedColumns[] = { "ID" };
+		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 					connection.prepareStatement(CREATE_RESERVATION_QUERY);) {
@@ -34,10 +35,10 @@ public class ReservationDAO {
 			statement.setInt(5, reservation.getUser_id());
 			statement.setInt(6, reservation.getStatus_id());
 			statement.executeUpdate();
-			ResultSet rs = statement.getGeneratedKeys();
-			if (rs.next()) {
-				reservation.setId(rs.getInt(1));
-		    }
+//			ResultSet rs = statement.getGeneratedKeys();
+//			if (rs.next()) {
+//				reservation.setId(rs.getInt(1));
+//		    }
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error");
@@ -117,6 +118,9 @@ public class ReservationDAO {
 		}  
 		Reservation[] rArray = new Reservation[reservations.size()]; 
 		rArray = reservations.toArray(rArray);
+		for (Reservation reservation : reservations) {
+            System.out.println(reservation.toString());
+        }
 		return rArray;
 		
 	}

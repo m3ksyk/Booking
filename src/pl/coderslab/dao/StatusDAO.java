@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import pl.coderslab.entity.Status;
+import pl.coderslab.entity.User;
 
 public class StatusDAO {
 //	int id;
@@ -51,6 +52,9 @@ public class StatusDAO {
 		}  
 		Status[] sArray = new Status[statuses.size()]; 
 		sArray = statuses.toArray(sArray);
+		for (Status status : statuses) {
+            System.out.println(status.toString());
+        }
 		return sArray;
 		
 	}

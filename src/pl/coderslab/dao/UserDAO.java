@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import pl.coderslab.entity.Group;
 import pl.coderslab.entity.User;
 
 public class UserDAO {
@@ -95,6 +96,9 @@ public class UserDAO {
 		    
 		User[] uArray = new User[users.size()]; 
 		uArray = users.toArray(uArray);
+		for (User user : users) {
+            System.out.println(user.toString());
+        }
 		return uArray;
 			
 	}

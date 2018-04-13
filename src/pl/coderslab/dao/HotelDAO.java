@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import pl.coderslab.entity.Hotel;
+import pl.coderslab.entity.User;
 
 public class HotelDAO {
 	//ZAPYTANIA SQL
@@ -59,6 +60,9 @@ public class HotelDAO {
 		}  
 		Hotel[] hArray = new Hotel[hotels.size()]; 
 		hArray = hotels.toArray(hArray);
+		for (Hotel hotel : hotels) {
+            System.out.println(hotel.toString());
+        }
 		return hArray;
 		
 	}

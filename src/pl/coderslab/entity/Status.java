@@ -28,6 +28,11 @@ public class Status {
 	public void setReservationStatus(int reservationStatus) {
 		this.reservationStatus = reservationStatus;
 	}
+
+	@Override
+	public String toString() {
+		return "Status [id=" + id + ", reservationStatus=" + reservationStatus + "]";
+	}
 	
 }
 

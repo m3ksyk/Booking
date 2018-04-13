@@ -1,4 +1,7 @@
 package pl.coderslab.entity;
+
+import java.util.Arrays;
+
 public class Hotel {
 	int id;
 	String name;
@@ -76,6 +79,13 @@ public class Hotel {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Hotel [id=" + id + ", name=" + name + ", address=" + address + ", phoneNumber=" + phoneNumber
+				+ ", petsAllowed=" + petsAllowed + ", description=" + description + ", rooms=" + Arrays.toString(rooms)
+				+ "]";
 	}
 	
 	

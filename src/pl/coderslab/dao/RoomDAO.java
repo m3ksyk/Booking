@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import pl.coderslab.entity.Room;
+import pl.coderslab.entity.User;
 
 public class RoomDAO {
 //int id;
@@ -30,7 +31,7 @@ public class RoomDAO {
 	
 	public static Room create(Room room) {
 		room = new Room();
-		String generatedColumns[] = { "ID" };
+		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 						connection.prepareStatement(CREATE_ROOM_QUERY);) {
@@ -40,10 +41,10 @@ public class RoomDAO {
 			statement.setDouble(4, room.getPrice());
 			statement.setInt(5, room.getHotel_id());				
 			statement.executeUpdate();
-			ResultSet rs = statement.getGeneratedKeys();
-			 if (rs.next()) {
-				 room.setId(rs.getInt(1));
-		      }
+//			ResultSet rs = statement.getGeneratedKeys();
+//			 if (rs.next()) {
+//				 room.setId(rs.getInt(1));
+//		      }
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error");
@@ -72,6 +73,9 @@ public class RoomDAO {
 		}  
 		Room[] rArray = new Room[rooms.size()]; 
 		rArray = rooms.toArray(rArray);
+		for (Room room : rooms) {
+            System.out.println(room.toString());
+        }
 		return rArray;
 		
 	}

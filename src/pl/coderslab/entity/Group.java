@@ -1,4 +1,7 @@
 package pl.coderslab.entity;
+
+import java.util.Arrays;
+
 public class Group {
 	int id;
 	String name;
@@ -29,6 +32,10 @@ public class Group {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "Group [id=" + id + ", name=" + name + ", users=" + Arrays.toString(users) + "]";
 	}
 	
 }

@@ -18,16 +18,16 @@ public class GroupDAO {
 	
 	public static Group create(Group group) {
 		group = new Group();
-		String generatedColumns[] = { "ID" };
+		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 						connection.prepareStatement(CREATE_GROUP_QUERY);) {
 			statement.setString(1, group.getName());			
 			statement.executeUpdate();
-			ResultSet rs = statement.getGeneratedKeys();
-				if (rs.next()) {
-					group.setId(rs.getInt(1));
-				}
+//			ResultSet rs = statement.getGeneratedKeys();
+//				if (rs.next()) {
+//					group.setId(rs.getInt(1));
+//				}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error");
@@ -53,6 +53,9 @@ public class GroupDAO {
 		}  
 		Group[] gArray = new Group[groups.size()]; 
 		gArray = groups.toArray(gArray);
+		for (Group group : groups) {
+            System.out.println(group.toString());
+        }
 		return gArray;
 		
 	}
