@@ -31,16 +31,20 @@ public class ReservationManager{
 				inputStr = scan.nextLine();
 			}else if (inputStr.equals("delete")) {
 				deleteReservation(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("view")) {
 				ReservationDAO.readAllReservations();
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("change")) {
 				changeStatus(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("details")) {
 				viewDetails(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else {
 				System.out.println("Choose one of the options:");
 				inputStr = scan.nextLine();

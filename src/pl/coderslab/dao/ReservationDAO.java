@@ -2,14 +2,10 @@ package pl.coderslab.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
 import pl.coderslab.entity.Reservation;
-import pl.coderslab.entity.User;
 
 public class ReservationDAO {
-
 	//SQL queries
 	private static final String CREATE_RESERVATION_QUERY =
 	"INSERT INTO reservations(applyDate, fromDate, toDate, description, user_id, status_id) VALUES (?,?,?,?,?,?)";
@@ -20,11 +16,9 @@ public class ReservationDAO {
 	private static final String READ_ALL_RESERVATION_QUERY = "SELECT * FROM reservations";
 	private static final String UPDATE_RESERVATION_STATUS_QUERY = "UPDATE reservations SET status_id = ? WHERE id = ?";;
 	private static final String READ_RESERVATION_DESCRIPTION_QUERY = "Select description from reservations where id = ?";
-
-	//sprawdzic czy to wprowadzanie id dziala
+	
 	public static Reservation create(Reservation reservation) {
 		reservation = new Reservation();
-		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 					connection.prepareStatement(CREATE_RESERVATION_QUERY);) {
@@ -35,10 +29,6 @@ public class ReservationDAO {
 			statement.setInt(5, reservation.getUser_id());
 			statement.setInt(6, reservation.getStatus_id());
 			statement.executeUpdate();
-//			ResultSet rs = statement.getGeneratedKeys();
-//			if (rs.next()) {
-//				reservation.setId(rs.getInt(1));
-//		    }
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error");
@@ -57,6 +47,7 @@ public class ReservationDAO {
 			System.out.println("Error");
 		}
 	}
+	
 	public static Reservation read(Integer reservationId) {
 		Reservation reservation = new Reservation();
 		try (Connection connection = DbUtil.getConnection();
@@ -95,6 +86,7 @@ public class ReservationDAO {
 		}
 		return reservation;
 	}
+	
 	public static Reservation[] readAllReservations() {
 		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 		try (Connection connection = DbUtil.getConnection();
@@ -142,6 +134,7 @@ public class ReservationDAO {
 		System.out.println("Error");
 		}
 	}
+	
 	public static void updateStatus(Reservation reservation) {
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =

@@ -1,5 +1,7 @@
 package pl.coderslab.entity;
 
+import pl.coderslab.entity.BCrypt;
+
 public class User {
 	// POLA KLASY
 	private Integer id;
@@ -13,7 +15,7 @@ public class User {
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.password = password;
+		this.setPassword(password);
 		this.userGroupId = userGroupId;
 	}
 	
@@ -41,8 +43,8 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String password2) {
+		this.password = BCrypt.hashpw(password2, BCrypt.gensalt());
 	}
 	public Integer getUserGroupId() {
 		return userGroupId;

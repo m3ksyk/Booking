@@ -3,15 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import pl.coderslab.entity.Status;
-import pl.coderslab.entity.User;
 
 public class StatusDAO {
-//	int id;
-//	public int reservationStatus; //1 - received 2 - paid 3 - canceled
-	
-	// ZAPYTANIA SQL
+	// SQL queries
 	private static final String CREATE_STATUS_QUERY =
 	"INSERT INTO status(reservationStatus) VALUES (?)";
 	private static final String READ_STATUS_QUERY = "Select * from status where id = ?";
@@ -20,7 +15,6 @@ public class StatusDAO {
 	private static final String DELETE_STATUS_QUERY = "DELETE FROM status where id = ?";
 	private static final String READ_ALL_STATUSES_QUERY = "SELECT * FROM status";
 	
-	//czy trzeba dodac wprowadzenie id? chyba trzeba
 	public Status create() {
 		Status status = new Status();
 		try (Connection connection = DbUtil.getConnection();
@@ -34,6 +28,7 @@ public class StatusDAO {
 		}
 		return status;
 	}
+	
 	public Status[] readAllStatuses(Integer statusId) {
 		ArrayList<Status> statuses = new ArrayList<Status>();
 		try (Connection connection = DbUtil.getConnection();
@@ -104,5 +99,5 @@ public class StatusDAO {
 
 }
 
-
-//CREATE TABLE status (id int(11) NOT NULL primary key auto_increment,reservation_status tinyint NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+//CREATE TABLE status (id int(11) NOT NULL primary key auto_increment,reservation_status 
+//tinyint NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;

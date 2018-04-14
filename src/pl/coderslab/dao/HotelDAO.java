@@ -3,12 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import pl.coderslab.entity.Hotel;
-import pl.coderslab.entity.User;
 
 public class HotelDAO {
-	//ZAPYTANIA SQL
+	//SQL queries
 	private static final String CREATE_HOTEL_QUERY =
 	"INSERT INTO hotels(name,address,phoneNumber,petsAllowed, description) VALUES (?,?,?,?,?)";
 	private static final String READ_HOTEL_QUERY = "Select * from hotels where id = ?";
@@ -19,7 +17,6 @@ public class HotelDAO {
 
 	public static Hotel create(Hotel hotel) {
 		hotel = new Hotel();
-		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 				connection.prepareStatement(CREATE_HOTEL_QUERY);) {
@@ -29,16 +26,13 @@ public class HotelDAO {
 				statement.setInt(4, hotel.isPetsAllowed());
 				statement.setString(5, hotel.getDescription());				
 				statement.executeUpdate();
-//				ResultSet rs = statement.getGeneratedKeys();
-//				 if (rs.next()) {
-//					 hotel.setId(rs.getInt(1));
-//			      }
 				} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Error");
 				}
 		return hotel;
 	}
+	
 	public static Hotel[] readAllHotels() {
 		ArrayList<Hotel> hotels = new ArrayList<Hotel>();
 		try (Connection connection = DbUtil.getConnection();
@@ -78,6 +72,7 @@ public class HotelDAO {
 			System.out.println("Coś się nie powiodło.");
 		}
 	}
+	
 	public Hotel read(Integer hotelId) {
 		Hotel hotel = new Hotel();
 		try (Connection connection = DbUtil.getConnection();

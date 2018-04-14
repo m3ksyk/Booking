@@ -9,7 +9,7 @@ public class Main {
 		
 			//IN THE CURRENT VERSION BOTH USER AND ADMIN PROGRAM ARE CALLED FROM A SHARED MENU IN MAIN METHOD
 			Scanner scan =new Scanner(System.in);
-			System.out.println("Press 1 to enter user view");
+			System.out.println("Press 1 to enter User view");
 			System.out.println("Press 2 to enter Admin view");
 			System.out.println("Press q to quit");
 			String inputStr = scan.nextLine();
@@ -19,7 +19,7 @@ public class Main {
 					UserProgram.userManagementView();
 					inputStr = scan.nextLine();
 				}else if (inputStr.equals("2")) {
-					System.out.println("Manager view");
+					System.out.println("Admin view");
 					Manager.manage();
 					inputStr = scan.nextLine();				
 				}else {

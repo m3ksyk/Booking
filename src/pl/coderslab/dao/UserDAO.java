@@ -3,11 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import pl.coderslab.entity.User;
 
 public class UserDAO {
-	// ZAPYTANIA SQL
+	// SQL queries
 	private static final String CREATE_USER_QUERY =
 	"INSERT INTO users(name,email,password,user_group_id) VALUES (?,?,?,?)";
 	private static final String READ_USER_QUERY = "Select * from users where id = ?";
@@ -18,18 +17,16 @@ public class UserDAO {
 	private static final String READ_USER_BY_MAIL_QUERY = "Select * from users where email = ?";
 	private static final String READ_USER_BY_GROUP_QUERY = "Select * from users where user_group_id = ?";
 	private static final String ADD_USER_TO_GROUP_QUERY = "UPDATE users SET user_group_id =? WHERE id = ?";
-	
-//	Dodawanie użytkownika.
+
 	public static User create(User user) {
 		user = new User();
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 				connection.prepareStatement(CREATE_USER_QUERY);) {
-					statement.setInt(6, user.getId());
 					statement.setString(1, user.getName());
-					statement.setString(3, user.getEmail());
-					statement.setString(4, user.getPassword());
-					statement.setInt(5, user.getUserGroupId());
+					statement.setString(2, user.getEmail());
+					statement.setString(3, user.getPassword());
+					statement.setInt(4, user.getUserGroupId());
 					statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -37,7 +34,7 @@ public class UserDAO {
 		}
 		return user;
 	}
-	//dodanie do grupy
+
 	public static void addToGroup(User user) {
 			try (Connection connection = DbUtil.getConnection();
 					PreparedStatement statement =
@@ -51,7 +48,7 @@ public class UserDAO {
 			}
 	}
 	
-//	Pobieranie użytkownika po adresie email.
+
 	public static User readByMail(String email) {
 		User user = new User();
 		try (Connection connection = DbUtil.getConnection();
@@ -72,7 +69,7 @@ public class UserDAO {
 		}
 		return user;
 	}
-//	Pobieranie listy wszystkich użytkowników.
+
 	public static User[] readAllUsers() {
 		ArrayList<User> users = new ArrayList<User>();
 		try (Connection connection = DbUtil.getConnection();
@@ -100,9 +97,8 @@ public class UserDAO {
         }
 		return uArray;
 			
-	}
-	
-//	Pobranie użytkownika, należącego do określonej grupy.
+	}	
+
 	public static User readByGroup(int groupId) {
 		User user = new User();
 		try (Connection connection = DbUtil.getConnection();
@@ -161,11 +157,11 @@ public class UserDAO {
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 						connection.prepareStatement(UPDATE_USER_QUERY);) {
-			statement.setInt(6, user.getId());
+			statement.setInt(5, user.getId());
 			statement.setString(1, user.getName());
-			statement.setString(3, user.getEmail());
-			statement.setString(4, user.getPassword());
-			statement.setInt(5, user.getUserGroupId());
+			statement.setString(2, user.getEmail());
+			statement.setString(3, user.getPassword());
+			statement.setInt(4, user.getUserGroupId());
 			statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

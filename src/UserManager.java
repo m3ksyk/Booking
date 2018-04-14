@@ -35,16 +35,20 @@ public class UserManager {
 				inputStr = scan.nextLine();
 			}else if (inputStr.equals("delete")) {
 				deleteUser(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");	
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("addgroup")) {
 				addToGroup(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("view")) {
 				UserDAO.readAllUsers();
-				System.out.println("Choose one of the options:");			
-			}else {
-				inputStr = scan.nextLine();
 				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
+			}else {
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
+				
 				
 			}
 			

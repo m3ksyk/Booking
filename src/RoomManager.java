@@ -27,13 +27,16 @@ public class RoomManager {
 				inputStr = scan.nextLine();
 			}else if (inputStr.equals("delete")) {
 				deleteRoom(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");	
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("view")) {
 				RoomDAO.readAllRooms();
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else if (inputStr.equals("assign")) {
 				assignToHotel(scan);
-				System.out.println("Choose one of the options:");			
+				System.out.println("Choose one of the options:");
+				inputStr = scan.nextLine();
 			}else {
 				System.out.println("Choose one of the options:");
 				inputStr = scan.nextLine();

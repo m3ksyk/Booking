@@ -3,23 +3,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import pl.coderslab.entity.Room;
-import pl.coderslab.entity.User;
 
 public class RoomDAO {
-//int id;
-//	int internalNumber;
-//	int peopleLimit;
-//	String description;
-//	double price;
-//	int hotel_id;
-	
-	
-	//CREATE TABLE rooms (id int(11) NOT NULL auto_increment primary key,internalNumber int, peopleLimit int, description varchar(500) COLLATE utf8_polish_ci NOT NULL, price decimal(7,2),hotel_id int(11) NOT NULL, foreign key (hotel_id) references hotels(id)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
-	
-	//ZAPYTANIA SQL
+	//SQL queries
 	private static final String CREATE_ROOM_QUERY =
 	"INSERT INTO rooms(internalNumber,peopleLimit,description, price, hotel_id) VALUES (?,?,?,?,?)";
 	private static final String READ_ROOM_QUERY = "Select * from rooms where id = ?";
@@ -31,7 +18,6 @@ public class RoomDAO {
 	
 	public static Room create(Room room) {
 		room = new Room();
-		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 						connection.prepareStatement(CREATE_ROOM_QUERY);) {
@@ -41,10 +27,6 @@ public class RoomDAO {
 			statement.setDouble(4, room.getPrice());
 			statement.setInt(5, room.getHotel_id());				
 			statement.executeUpdate();
-//			ResultSet rs = statement.getGeneratedKeys();
-//			 if (rs.next()) {
-//				 room.setId(rs.getInt(1));
-//		      }
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error");
@@ -91,6 +73,7 @@ public class RoomDAO {
 			System.out.println("Error");
 		}
 	}
+	
 	public static Room read(Integer roomId) {
 		Room room = new Room();
 		try (Connection connection = DbUtil.getConnection();
@@ -131,7 +114,6 @@ public class RoomDAO {
 		}
 	}
 	
-	//method for assigning room to a hotel ( hotel_id as foreign key!!)
 	public static void assignToHotel(Room room, int hotelId) {
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
@@ -148,3 +130,7 @@ public class RoomDAO {
 }
 
 
+//CREATE TABLE rooms (id int(11) NOT NULL auto_increment primary key,internalNumber 
+//int, peopleLimit int, description varchar(500) COLLATE utf8_polish_ci NOT NULL, price 
+//decimal(7,2),hotel_id int(11) NOT NULL, foreign key (hotel_id) references hotels(id)) 
+//ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;

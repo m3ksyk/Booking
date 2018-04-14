@@ -3,7 +3,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import pl.coderslab.entity.Group;
 
 public class GroupDAO {
@@ -18,16 +17,11 @@ public class GroupDAO {
 	
 	public static Group create(Group group) {
 		group = new Group();
-		//String generatedColumns[] = { "ID" };
 		try (Connection connection = DbUtil.getConnection();
 				PreparedStatement statement =
 						connection.prepareStatement(CREATE_GROUP_QUERY);) {
 			statement.setString(1, group.getName());			
 			statement.executeUpdate();
-//			ResultSet rs = statement.getGeneratedKeys();
-//				if (rs.next()) {
-//					group.setId(rs.getInt(1));
-//				}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error");
@@ -43,7 +37,8 @@ public class GroupDAO {
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					Group group = new Group();
-					group.setId(resultSet.getInt("id"));					
+					group.setId(resultSet.getInt("id"));
+					group.setName(resultSet.getString("name"));
 					groups.add(group);
 				}
 			}

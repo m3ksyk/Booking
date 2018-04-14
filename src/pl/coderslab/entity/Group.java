@@ -6,7 +6,7 @@ public class Group {
 	int id;
 	String name;
 	User[] users;
-	//wykminic cos na rabat
+	
 	
 	public Group(String name, User[] users) {
 		this.name = name;
